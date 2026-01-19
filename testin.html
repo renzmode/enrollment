@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior High School Enrollment</title>
+<!-- Import modern fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Import Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* MODERN RESET & VARIABLES */
+:root {
+  --primary: #8B0000;
+  --primary-light: #A52A2A;
+  --secondary: #2D3748;
+  --accent: #4299E1;
+  --success: #38A169;
+  --warning: #D69E2E;
+  --light: #F7FAFC;
+  --white: #FFFFFF;
+  --gray-100: #EDF2F7;
+  --gray-200: #E2E8F0;
+  --gray-300: #CBD5E0;
+  --gray-700: #4A5568;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  color: var(--secondary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* MODERN HEADER */
+header {
+  background: var(--white);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo-container {
+  position: relative;
+}
+
+.logo-badge {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.2);
+  overflow: hidden;
+  background: var(--white);
+  border: 2px solid var(--primary);
+}
+
+.logo-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px;
+}
+
+.header-content h1 {
+  color: var(--primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.5px;
+}
+
+.header-content h3 {
+  color: var(--gray-700);
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* PROGRESS INDICATOR */
+.progress-container {
+  max-width: 1150px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.progress-bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gray-200);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.progress-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: var(--transition);
+}
+
+.progress-step {
+  position: relative;
+  z-index: 3;
+  background: var(--white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--gray-700);
+  border: 2px solid var(--gray-200);
+  transition: var(--transition);
+}
+
+.progress-step.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.25);
+}
+
+.progress-step.completed {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.step-label {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+/* MAIN CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+/* PAGE STYLES */
+.page {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+  animation: slideUp 0.5s ease-out;
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SECTION TITLES */
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--primary);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+/* GOOGLE MAP CONTAINER */
+.map-container {
+  width: 100%;
+  height: 350px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: 2rem 0;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--white);
+}
+
+.map-background {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.map-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.map-overlay {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  background: rgba(139, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.map-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  z-index: 1;
+  color: #FFD700;
+}
+
+.map-overlay h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.map-overlay p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin-bottom: 1.5rem;
+  z-index: 1;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  max-width: 500px;
+}
+
+.map-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.map-button:hover {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
+}
+
+.map-button i {
+  font-size: 1.1rem;
+}
+
+/* WELCOME BANNER */
+.welcome-banner {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  color: white;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+  background-size: cover;
+}
+
+.welcome-banner h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-banner p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.school-details {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  margin-top: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.school-details h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: white;
+}
+
+.school-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.info-item i {
+  font-size: 1.1rem;
+  color: #FFD700;
+}
+
+/* TRACK SELECTION CARDS */
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.track-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+.track-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.track-card h3 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.track-card p {
+  color: var(--gray-700);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.strand-list {
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+.strand-item {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: var(--gray-100);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.strand-item:hover {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+}
+
+.strand-item.selected {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+  font-weight: 600;
+}
+
+.strand-item::before {
+  content: '✓';
+  margin-right: 0.75rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.strand-item:hover::before,
+.strand-item.selected::before {
+  color: white;
+}
+
+.select-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1rem;
+}
+
+.select-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+}
+
+.select-btn:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* FORM STYLES */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+.form-group.required label::after {
+  content: ' *';
+  color: var(--primary);
+  opacity: 0.8;
+}
+
+.form-group input:not([type="file"]),
+.form-group select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--white);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.form-group input[readonly] {
+  background: var(--gray-100);
+  cursor: not-allowed;
+}
+
+/* MODERN FILE UPLOAD STYLES */
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.upload-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: var(--transition);
+  border: 2px solid var(--gray-200);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.upload-card.uploaded {
+  border-color: var(--success);
+  background: linear-gradient(to bottom right, #F0FFF4, #FFFFFF);
+}
+
+.upload-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.upload-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.upload-card-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 0.25rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.upload-card-header p {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  opacity: 0.8;
+}
+
+.upload-area {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.upload-dropzone {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--gray-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-dropzone:hover {
+  border-color: var(--primary);
+  background: var(--gray-200);
+}
+
+.upload-dropzone.dragover {
+  border-color: var(--primary);
+  background: linear-gradient(to bottom right, rgba(139, 0, 0, 0.05), rgba(165, 42, 42, 0.05));
+}
+
+.upload-dropzone i {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.upload-dropzone h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.upload-dropzone p {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.upload-dropzone .file-types {
+  font-size: 0.85rem;
+  color: var(--gray-700);
+  opacity: 0.8;
+}
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1rem;
+}
+
+.upload-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+}
+
+.upload-button i {
+  font-size: 1rem;
+}
+
+.file-preview {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--gray-100);
+  border-radius: var(--radius);
+  display: none;
+}
+
+.file-preview.show {
+  display: block;
+  animation: slideUp 0.3s ease;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--success), #2F855A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.file-details {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.file-name {
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  font-size: 0.85rem;
+  color: var(--gray-700);
+}
+
+.file-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.file-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: white;
+  color: var(--secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-action-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.file-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: var(--radius);
+  border-left: 4px solid var(--success);
+}
+
+.file-status i {
+  color: var(--success);
+  font-size: 1rem;
+}
+
+.file-status span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--success);
+}
+
+/* BUTTON STYLES */
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.btn {
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--secondary);
+  border: 2px solid var(--gray-300);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-next::after {
+  content: '→';
+  margin-left: 0.25rem;
+}
+
+.btn-back::before {
+  content: '←';
+  margin-right: 0.25rem;
+}
+
+/* SELECTION INDICATOR */
+.selection-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  animation: slideUp 0.3s ease;
+}
+
+.selection-indicator button {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.selection-indicator button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* TOGGLE BUTTON FOR GUARDIAN INFO */
+.toggle-container {
+  margin: 1rem 0;
+}
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+.toggle-button:hover {
+  background: var(--gray-200);
+  border-color: var(--primary-light);
+}
+
+.toggle-button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.toggle-button::before {
+  content: '+';
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.toggle-button.active::before {
+  content: '−';
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+  }
+  
+  .logo-badge {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
+  
+  .header-content h1 {
+    font-size: 1.4rem;
+  }
+  
+  .header-content h3 {
+    font-size: 0.85rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .page {
+    padding: 1.5rem;
+  }
+  
+  .map-container {
+    height: 300px;
+  }
+  
+  .map-overlay h3 {
+    font-size: 1.5rem;
+  }
+  
+  .map-overlay p {
+    font-size: 1rem;
+  }
+  
+  .welcome-banner {
+    padding: 2rem 1rem;
+  }
+  
+  .welcome-banner h2 {
+    font-size: 1.8rem;
+  }
+  
+  .welcome-banner p {
+    font-size: 1rem;
+  }
+  
+  .track-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .upload-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .progress-bar {
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .progress-step {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .selection-indicator {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .upload-card {
+    padding: 1.5rem;
+  }
+  
+  .upload-dropzone {
+    padding: 1.5rem 1rem;
+  }
+  
+  .file-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .file-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ANIMATIONS */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* UTILITY CLASSES */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mt-2 { margin-top: 2rem; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <div class="logo-badge">
+      <!-- ADD YOUR MORS LOGO IMAGE HERE -->
+      <img src="jedel.jpg" 
+           alt="Marcial O. Rañola Memorial School Logo">
+    </div>
+  </div>
+  <div class="header-content">
+    <h1>Senior High School Enrollment</h1>
+    <h3>For Academic and Tech-Pro Tracks — Grades 11 and 12</h3>
+  </div>
+</header>
+
+<!-- Progress Bar -->
+<div class="progress-container">
+  <div class="progress-bar">
+    <div class="progress-line" id="progressLine"></div>
+    <div class="progress-step active" data-step="1">
+      1
+      <span class="step-label">Choose Track</span>
+    </div>
+    <div class="progress-step" data-step="2">
+      2
+      <span class="step-label">Student Info</span>
+    </div>
+    <div class="progress-step" data-step="3">
+      3
+      <span class="step-label">Upload Documents</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+
+  <!-- Page 1: Track Selection -->
+  <div class="page active" id="page1">
+    <!-- Google Map Section -->
+    <div class="map-container">
+      <div class="map-background" style="background-image: url('pogi ako.jpeg');">
+        <div class="map-overlay">
+          <i class="fas fa-map-marked-alt map-icon"></i>
+          <h3>Marcial O. Rañola Memorial School</h3>
+          <p>San Francisco, Guinobatan, Albay</p>
+          <a href="https://maps.google.com/?q=Marcial+O.+Rañola+Memorial+School+San+Francisco+Guinobatan+Albay" 
+             target="_blank" 
+             class="map-button">
+            <i class="fas fa-map-marker-alt"></i>
+            View School Location on Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <h2>Welcome to Marcial O. Rañola Memorial School</h2>
+      <p>Shaping Future Leaders Through Quality Education</p>
+      
+      <div class="school-details">
+        <h3>School Information</h3>
+        <div class="school-info">
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>San Francisco, Guinobatan, Albay</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Senior High School Department</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Academic Year 2024-2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title text-center mb-2">Choose Your Senior High School Track</h2>
+    
+    <div class="track-grid">
+      <div class="track-card" id="academicTrack">
+        <h3>Academic Track</h3>
+        <p>Prepares you for college and professional careers with specialized strands that focus on academic excellence and critical thinking.</p>
+        <strong>Available Strands:</strong>
+        <ul class="strand-list">
+          <li class="strand-item" data-track="Academic" data-strand="STEM">STEM (Science, Technology, Engineering & Mathematics)</li>
+          <li class="strand-item" data-track="Academic" data-strand="ABM">ABM (Accountancy, Business & Management)</li>
+          <li class="strand-item" data-track="Academic" data-strand="HUMSS">HUMSS (Humanities & Social Sciences)</li>
+        </ul>
+        <button class="select-btn" id="academicSelectBtn" onclick="selectTrack('Academic')">
+          <span>Select Academic Track</span>
+        </button>
+      </div>
+
+      <div class="track-card" id="techproTrack">
+        <h3>Tech-Pro Track</h3>
+        <p>Skill-based preparation for immediate employment or entrepreneurship with hands-on training in technical fields.</p>
+        <strong>Available Strands:</strong>
+        <ul class="strand-list">
+          <li class="strand-item" data-track="Tech-Pro" data-strand="ICT">ICT (Information & Communications Technology)</li>
+          <li class="strand-item" data-track="Tech-Pro" data-strand="Home Economics">Home Economics</li>
+          <li class="strand-item" data-track="Tech-Pro" data-strand="Automotive Technology">Automotive Technology</li>
+        </ul>
+        <button class="select-btn" id="techproSelectBtn" onclick="selectTrack('Tech-Pro')">
+          <span>Select Tech-Pro Track</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Student Information -->
+  <div class="page" id="page2">
+    <h2 class="section-title">Student Information</h2>
+    
+    <div class="form-grid">
+      <div class="form-group required">
+        <label>LRN (Learner Reference Number)</label>
+        <input type="text" id="lrn" placeholder="Enter 12-digit LRN" required>
+      </div>
+    </div>
+
+    <h3 class="section-title mt-2">Personal Details</h3>
+    <div class="form-grid">
+      <div class="form-group required">
+        <label>Last Name</label>
+        <input type="text" id="lastname" required>
+      </div>
+      <div class="form-group required">
+        <label>First Name</label>
+        <input type="text" id="firstname" required>
+      </div>
+      <div class="form-group required">
+        <label>Middle Name</label>
+        <input type="text" id="middlename" required>
+      </div>
+      <div class="form-group required">
+        <label>Sex</label>
+        <select id="sex" required>
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+      <div class="form-group required">
+        <label>Age</label>
+        <input type="number" id="age" min="15" max="25" required>
+      </div>
+      <div class="form-group required">
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required>
+      </div>
+      <div class="form-group required">
+        <label>Place of Birth</label>
+        <input type="text" id="placebirth" required>
+      </div>
+      <div class="form-group required">
+        <label>Mother Tongue</label>
+        <input type="text" id="mothertongue" required>
+      </div>
+    </div>
+
+    <h3 class="section-title mt-2">Address Information</h3>
+    <div class="form-grid">
+      <div class="form-group required">
+        <label>Current Address</label>
+        <input type="text" id="currentaddress" required>
+      </div>
+      <div class="form-group required">
+        <label>Permanent Address</label>
+        <input type="text" id="permanentaddress" required>
+      </div>
+    </div>
+
+    <h3 class="section-title mt-2">Parent Information</h3>
+    <div class="form-grid">
+      <div class="form-group required">
+        <label>Father's Full Name</label>
+        <input type="text" id="fathername" required>
+      </div>
+      <div class="form-group required">
+        <label>Father's Contact Number</label>
+        <input type="tel" id="fathercontact" required>
+      </div>
+      <div class="form-group required">
+        <label>Mother's Full Name</label>
+        <input type="text" id="mothername" required>
+      </div>
+      <div class="form-group required">
+        <label>Mother's Contact Number</label>
+        <input type="tel" id="mothercontact" required>
+      </div>
+    </div>
+
+    <h3 class="section-title mt-2">Guardian Information <small style="font-size: 1rem; color: var(--gray-700); font-weight: normal;">(Optional)</small></h3>
+    
+    <div class="toggle-container">
+      <div class="toggle-button" onclick="toggleGuardianInfo()">
+        Add Guardian Information
+      </div>
+    </div>
+    
+    <div id="guardianInfoSection" style="display: none;">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Guardian's Full Name</label>
+          <input type="text" id="guardianname" placeholder="Enter guardian's full name">
+          <span class="optional-note">Optional</span>
+        </div>
+        <div class="form-group">
+          <label>Relationship to Student</label>
+          <select id="guardianrelationship">
+            <option value="">Select relationship</option>
+            <option>Grandparent</option>
+            <option>Uncle/Aunt</option>
+            <option>Sibling</option>
+            <option>Other Relative</option>
+            <option>Family Friend</option>
+            <option>Legal Guardian</option>
+          </select>
+          <span class="optional-note">Optional</span>
+        </div>
+        <div class="form-group">
+          <label>Guardian's Contact Number</label>
+          <input type="tel" id="guardiancontact" placeholder="Enter contact number">
+          <span class="optional-note">Optional</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-title mt-2">School Information</h3>
+    <div class="form-grid">
+      <div class="form-group required">
+        <label>School Year</label>
+        <input type="text" id="schoolyear" placeholder="e.g. 2024–2025" required>
+      </div>
+      <div class="form-group required">
+        <label>Grade Level to Enroll</label>
+        <select id="gradelevel" required>
+          <option value="">Select</option>
+          <option>Grade 11</option>
+          <option>Grade 12</option>
+        </select>
+      </div>
+      <div class="form-group required">
+        <label>Last Grade Level Completed</label>
+        <input type="text" id="lastgrade" required>
+      </div>
+      <div class="form-group required">
+        <label>Last School Year Completed</label>
+        <input type="text" id="lastschoolyear" required>
+      </div>
+      <div class="form-group required">
+        <label>School ID</label>
+        <input type="text" id="schoolid" required>
+      </div>
+      <div class="form-group required">
+        <label>Selected Track</label>
+        <input type="text" id="trackInput" readonly required>
+      </div>
+      <div class="form-group required">
+        <label>Strand</label>
+        <select id="strandSelect" required>
+          <option value="">Select Strand</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary btn-back" onclick="prevPage()">Back</button>
+      <button class="btn btn-primary btn-next" onclick="validatePage1()">Continue to Documents</button>
+    </div>
+  </div>
+
+  <!-- Page 3: Document Upload -->
+  <div class="page" id="page3">
+    <h2 class="section-title">Upload Required Documents</h2>
+    <p class="mb-2" style="color: var(--gray-700);">Please upload clear scans/photos of the following documents (PDF, JPG, or PNG format)</p>
+    
+    <div class="upload-grid">
+      <!-- Form 138 / Report Card -->
+      <div class="upload-card" id="form138Card">
+        <div class="upload-card-header">
+          <div class="upload-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div>
+            <h3>Form 138 / Report Card</h3>
+            <p>Required document</p>
+          </div>
+        </div>
+        
+        <div class="upload-area">
+          <div class="upload-dropzone" id="form138Dropzone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h4>Upload Report Card</h4>
+            <p>Drag & drop your file here or click to browse</p>
+            <div class="file-types">PDF, JPG, PNG (Max: 5MB)</div>
+            <button class="upload-button">
+              <i class="fas fa-upload"></i>
+              Browse Files
+            </button>
+            <input type="file" id="form138" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+          </div>
+          
+          <div class="file-preview" id="form138Preview">
+            <div class="file-info">
+              <div class="file-icon">
+                <i class="fas fa-file-pdf"></i>
+              </div>
+              <div class="file-details">
+                <div class="file-name" id="form138Name">No file selected</div>
+                <div class="file-size" id="form138Size"></div>
+              </div>
+              <div class="file-actions">
+                <button class="file-action-btn" onclick="viewFile('form138')">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="file-action-btn" onclick="removeFile('form138')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="file-status">
+              <i class="fas fa-check-circle"></i>
+              <span>Upload successful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- PSA Birth Certificate -->
+      <div class="upload-card" id="birthCertificateCard">
+        <div class="upload-card-header">
+          <div class="upload-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div>
+            <h3>PSA Birth Certificate</h3>
+            <p>Required document</p>
+          </div>
+        </div>
+        
+        <div class="upload-area">
+          <div class="upload-dropzone" id="birthCertificateDropzone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h4>Upload Birth Certificate</h4>
+            <p>Drag & drop your file here or click to browse</p>
+            <div class="file-types">PDF, JPG, PNG (Max: 5MB)</div>
+            <button class="upload-button">
+              <i class="fas fa-upload"></i>
+              Browse Files
+            </button>
+            <input type="file" id="birthCertificate" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+          </div>
+          
+          <div class="file-preview" id="birthCertificatePreview">
+            <div class="file-info">
+              <div class="file-icon">
+                <i class="fas fa-file-pdf"></i>
+              </div>
+              <div class="file-details">
+                <div class="file-name" id="birthCertificateName">No file selected</div>
+                <div class="file-size" id="birthCertificateSize"></div>
+              </div>
+              <div class="file-actions">
+                <button class="file-action-btn" onclick="viewFile('birthCertificate')">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="file-action-btn" onclick="removeFile('birthCertificate')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="file-status">
+              <i class="fas fa-check-circle"></i>
+              <span>Upload successful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Good Moral Certificate -->
+      <div class="upload-card" id="goodMoralCard">
+        <div class="upload-card-header">
+          <div class="upload-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <div>
+            <h3>Good Moral Certificate</h3>
+            <p>Required document</p>
+          </div>
+        </div>
+        
+        <div class="upload-area">
+          <div class="upload-dropzone" id="goodMoralDropzone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h4>Upload Good Moral Certificate</h4>
+            <p>Drag & drop your file here or click to browse</p>
+            <div class="file-types">PDF, JPG, PNG (Max: 5MB)</div>
+            <button class="upload-button">
+              <i class="fas fa-upload"></i>
+              Browse Files
+            </button>
+            <input type="file" id="goodMoral" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+          </div>
+          
+          <div class="file-preview" id="goodMoralPreview">
+            <div class="file-info">
+              <div class="file-icon">
+                <i class="fas fa-file-pdf"></i>
+              </div>
+              <div class="file-details">
+                <div class="file-name" id="goodMoralName">No file selected</div>
+                <div class="file-size" id="goodMoralSize"></div>
+              </div>
+              <div class="file-actions">
+                <button class="file-action-btn" onclick="viewFile('goodMoral')">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="file-action-btn" onclick="removeFile('goodMoral')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="file-status">
+              <i class="fas fa-check-circle"></i>
+              <span>Upload successful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ID Picture -->
+      <div class="upload-card" id="idPictureCard">
+        <div class="upload-card-header">
+          <div class="upload-icon">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <div>
+            <h3>2x2 ID Picture</h3>
+            <p>Required document</p>
+          </div>
+        </div>
+        
+        <div class="upload-area">
+          <div class="upload-dropzone" id="idPictureDropzone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h4>Upload ID Picture</h4>
+            <p>Drag & drop your file here or click to browse</p>
+            <div class="file-types">JPG, PNG (White background, 2x2 size)</div>
+            <button class="upload-button">
+              <i class="fas fa-upload"></i>
+              Browse Files
+            </button>
+            <input type="file" id="idPicture" accept=".jpg,.jpeg,.png" style="display: none;">
+          </div>
+          
+          <div class="file-preview" id="idPicturePreview">
+            <div class="file-info">
+              <div class="file-icon">
+                <i class="fas fa-image"></i>
+              </div>
+              <div class="file-details">
+                <div class="file-name" id="idPictureName">No file selected</div>
+                <div class="file-size" id="idPictureSize"></div>
+              </div>
+              <div class="file-actions">
+                <button class="file-action-btn" onclick="viewFile('idPicture')">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="file-action-btn" onclick="removeFile('idPicture')">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            <div class="file-status">
+              <i class="fas fa-check-circle"></i>
+              <span>Upload successful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary btn-back" onclick="prevPage2()">Back to Info</button>
+      <button class="btn btn-primary" onclick="validatePage2()">
+        <span>Submit Enrollment</span>
+        <i class="fas fa-check" style="margin-left: 0.5rem;"></i>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Global Variables
+let currentPage = 1;
+let selectedTrack = '';
+let selectedStrand = '';
+let guardianInfoVisible = false;
+let selectionIndicator = null;
+
+// DOM Elements
+const pages = {
+  1: document.getElementById('page1'),
+  2: document.getElementById('page2'),
+  3: document.getElementById('page3')
+};
+
+const progressSteps = document.querySelectorAll('.progress-step');
+const progressLine = document.getElementById('progressLine');
+const strandItems = document.querySelectorAll('.strand-item');
+
+// File upload data
+const fileUploads = {
+  form138: { uploaded: false, file: null, previewId: 'form138Preview' },
+  birthCertificate: { uploaded: false, file: null, previewId: 'birthCertificatePreview' },
+  goodMoral: { uploaded: false, file: null, previewId: 'goodMoralPreview' },
+  idPicture: { uploaded: false, file: null, previewId: 'idPicturePreview' }
+};
+
+// Initialize
+function init() {
+  updateProgress();
+  setupFileUploads();
+  setupStrandSelection();
+}
+
+// Setup Strand Selection
+function setupStrandSelection() {
+  strandItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent event bubbling
+      
+      const track = this.dataset.track;
+      const strand = this.dataset.strand;
+      
+      // Remove selection from all strand items
+      strandItems.forEach(i => i.classList.remove('selected'));
+      
+      // Select clicked strand
+      this.classList.add('selected');
+      
+      // Set global variables
+      selectedTrack = track;
+      selectedStrand = strand;
+      
+      // Update form fields
+      document.getElementById('trackInput').value = track;
+      
+      const strandSelect = document.getElementById('strandSelect');
+      strandSelect.innerHTML = `<option value="${strand}" selected>${strand}</option>`;
+      
+      // Show selection indicator
+      showSelectionIndicator(track, strand);
+    });
+  });
+}
+
+// Show selection indicator
+function showSelectionIndicator(track, strand) {
+  // Remove existing indicator
+  if (selectionIndicator) {
+    selectionIndicator.remove();
+  }
+  
+  // Create new indicator
+  selectionIndicator = document.createElement('div');
+  selectionIndicator.className = 'selection-indicator';
+  selectionIndicator.innerHTML = `
+    <div>
+      <strong>Selected:</strong> ${track} Track - ${strand}
+    </div>
+    <button onclick="proceedWithSelection()">Proceed to Enrollment Form</button>
+  `;
+  
+  document.body.appendChild(selectionIndicator);
+}
+
+// Proceed to enrollment form
+function proceedWithSelection() {
+  if (selectedTrack && selectedStrand) {
+    goToPage(2);
+    // Scroll to track field to show it's already filled
+    document.getElementById('trackInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Remove selection indicator
+    if (selectionIndicator) {
+      selectionIndicator.remove();
+      selectionIndicator = null;
+    }
+  }
+}
+
+// Guardian Information Toggle
+function toggleGuardianInfo() {
+  guardianInfoVisible = !guardianInfoVisible;
+  const section = document.getElementById('guardianInfoSection');
+  const button = document.querySelector('.toggle-button');
+  
+  if (guardianInfoVisible) {
+    section.style.display = 'block';
+    button.classList.add('active');
+    button.innerHTML = 'Remove Guardian Information';
+    
+    // Smooth scroll to the guardian section
+    setTimeout(() => {
+      section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 300);
+  } else {
+    section.style.display = 'none';
+    button.classList.remove('active');
+    button.innerHTML = 'Add Guardian Information';
+    
+    // Clear guardian fields when hiding
+    const guardianFields = ['guardianname', 'guardianrelationship', 'guardiancontact'];
+    guardianFields.forEach(field => {
+      document.getElementById(field).value = '';
+    });
+  }
+}
+
+// Track Selection (for button clicks)
+function selectTrack(track) {
+  // If no specific strand is selected yet, use the first one
+  if (!selectedStrand) {
+    const strands = track === 'Academic' 
+      ? ['STEM', 'ABM', 'HUMSS']
+      : ['ICT', 'Home Economics', 'Automotive Technology'];
+    
+    selectedTrack = track;
+    selectedStrand = strands[0];
+    
+    // Update strand selection in the list
+    const strandItem = document.querySelector(`.strand-item[data-track="${track}"][data-strand="${strands[0]}"]`);
+    if (strandItem) {
+      strandItems.forEach(i => i.classList.remove('selected'));
+      strandItem.classList.add('selected');
+    }
+  }
+  
+  document.getElementById('trackInput').value = selectedTrack;
+  
+  const strandSelect = document.getElementById('strandSelect');
+  strandSelect.innerHTML = `<option value="${selectedStrand}" selected>${selectedStrand}</option>`;
+  
+  goToPage(2);
+}
+
+// Page Navigation
+function goToPage(pageNumber) {
+  // Hide all pages
+  Object.values(pages).forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  // Show target page
+  pages[pageNumber].classList.add('active');
+  currentPage = pageNumber;
+  
+  // Update progress bar
+  updateProgress();
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const progress = (currentPage - 1) / 2; // 0 to 1
+  
+  // Update progress line
+  progressLine.style.width = `${progress * 100}%`;
+  
+  // Update steps
+  progressSteps.forEach(step => {
+    const stepNum = parseInt(step.dataset.step);
+    step.classList.remove('active', 'completed');
+    
+    if (stepNum === currentPage) {
+      step.classList.add('active');
+    } else if (stepNum < currentPage) {
+      step.classList.add('completed');
+    }
+  });
+}
+
+// Setup File Uploads
+function setupFileUploads() {
+  // Setup each file upload
+  const fileTypes = ['form138', 'birthCertificate', 'goodMoral', 'idPicture'];
+  
+  fileTypes.forEach(fileType => {
+    const dropzone = document.getElementById(`${fileType}Dropzone`);
+    const fileInput = document.getElementById(fileType);
+    const preview = document.getElementById(`${fileType}Preview`);
+    const uploadButton = dropzone.querySelector('.upload-button');
+    const card = document.getElementById(`${fileType}Card`);
+    
+    // Click on dropzone to trigger file input
+    dropzone.addEventListener('click', () => {
+      fileInput.click();
+    });
+    
+    // Click on upload button
+    uploadButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+    
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileUpload(fileType, e.target.files[0]);
+      }
+    });
+    
+    // Drag and drop functionality
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('dragover');
+    });
+    
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      
+      if (e.dataTransfer.files.length > 0) {
+        handleFileUpload(fileType, e.dataTransfer.files[0]);
+      }
+    });
+  });
+}
+
+// Handle file upload
+function handleFileUpload(fileType, file) {
+  // Check file size (max 5MB)
+  const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+  
+  if (file.size > maxSize) {
+    alert(`File size must be less than 5MB. Your file is ${(file.size / (1024 * 1024)).toFixed(2)}MB.`);
+    return;
+  }
+  
+  // Update file upload data
+  fileUploads[fileType].uploaded = true;
+  fileUploads[fileType].file = file;
+  
+  // Update UI
+  const fileNameElement = document.getElementById(`${fileType}Name`);
+  const fileSizeElement = document.getElementById(`${fileType}Size`);
+  const previewElement = document.getElementById(`${fileType}Preview`);
+  const cardElement = document.getElementById(`${fileType}Card`);
+  
+  // Show file info
+  fileNameElement.textContent = file.name;
+  fileSizeElement.textContent = formatFileSize(file.size);
+  
+  // Show preview
+  previewElement.classList.add('show');
+  
+  // Update card style
+  cardElement.classList.add('uploaded');
+  
+  // Update icon based on file type
+  const fileIcon = previewElement.querySelector('.file-icon i');
+  if (file.type.startsWith('image/')) {
+    fileIcon.className = 'fas fa-image';
+  } else if (file.type === 'application/pdf') {
+    fileIcon.className = 'fas fa-file-pdf';
+  } else {
+    fileIcon.className = 'fas fa-file';
+  }
+  
+  // Show success message
+  console.log(`${fileType} uploaded successfully:`, file.name);
+}
+
+// Format file size
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// View file (placeholder function)
+function viewFile(fileType) {
+  const file = fileUploads[fileType].file;
+  if (file) {
+    // Create a URL for the file and open in new tab
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL, '_blank');
+    
+    // Note: In a real application, you might want to revoke the URL after use
+    // URL.revokeObjectURL(fileURL);
+  }
+}
+
+// Remove file
+function removeFile(fileType) {
+  // Reset file upload data
+  fileUploads[fileType].uploaded = false;
+  fileUploads[fileType].file = null;
+  
+  // Update UI
+  const previewElement = document.getElementById(`${fileType}Preview`);
+  const cardElement = document.getElementById(`${fileType}Card`);
+  const fileInput = document.getElementById(fileType);
+  
+  // Hide preview
+  previewElement.classList.remove('show');
+  
+  // Reset card style
+  cardElement.classList.remove('uploaded');
+  
+  // Reset file input
+  fileInput.value = '';
+  
+  console.log(`${fileType} removed`);
+}
+
+// Form Validation
+function validatePage1() {
+  const requiredInputs = document.querySelectorAll('#page2 .required input[required], #page2 .required select[required]');
+  let isValid = true;
+  
+  requiredInputs.forEach(input => {
+    if (!input.value.trim()) {
+      input.style.borderColor = 'var(--primary)';
+      input.style.boxShadow = '0 0 0 3px rgba(139, 0, 0, 0.2)';
+      isValid = false;
+      
+      // Scroll to first invalid input
+      if (isValid === false) {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.focus();
+      }
+    } else {
+      input.style.borderColor = '';
+      input.style.boxShadow = '';
+    }
+  });
+  
+  if (isValid) {
+    goToPage(3);
+  } else {
+    alert('Please fill in all required fields before proceeding.');
+  }
+}
+
+function validatePage2() {
+  // Check if all required files are uploaded
+  const requiredFiles = ['form138', 'birthCertificate', 'goodMoral', 'idPicture'];
+  let allUploaded = true;
+  let missingFiles = [];
+  
+  requiredFiles.forEach(fileType => {
+    if (!fileUploads[fileType].uploaded) {
+      allUploaded = false;
+      missingFiles.push(fileType);
+      
+      // Highlight the missing file card
+      const card = document.getElementById(`${fileType}Card`);
+      card.style.borderColor = 'var(--primary)';
+      card.style.boxShadow = '0 0 0 3px rgba(139, 0, 0, 0.1)';
+    } else {
+      const card = document.getElementById(`${fileType}Card`);
+      card.style.borderColor = '';
+      card.style.boxShadow = '';
+    }
+  });
+  
+  if (allUploaded) {
+    // Collect all form data including guardian info
+    const formData = collectFormData();
+    showConfirmation(formData);
+  } else {
+    // Scroll to first missing file
+    const firstMissing = document.getElementById(`${missingFiles[0]}Card`);
+    firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    alert('Please upload all required documents before submitting.');
+  }
+}
+
+function collectFormData() {
+  const data = {
+    // Student Information
+    lrn: document.getElementById('lrn').value,
+    lastName: document.getElementById('lastname').value,
+    firstName: document.getElementById('firstname').value,
+    middleName: document.getElementById('middlename').value,
+    sex: document.getElementById('sex').value,
+    age: document.getElementById('age').value,
+    dob: document.getElementById('dob').value,
+    placeOfBirth: document.getElementById('placebirth').value,
+    motherTongue: document.getElementById('mothertongue').value,
+    
+    // Address
+    currentAddress: document.getElementById('currentaddress').value,
+    permanentAddress: document.getElementById('permanentaddress').value,
+    
+    // Parent Information
+    fatherName: document.getElementById('fathername').value,
+    fatherContact: document.getElementById('fathercontact').value,
+    motherName: document.getElementById('mothername').value,
+    motherContact: document.getElementById('mothercontact').value,
+    
+    // Guardian Information (only if provided)
+    hasGuardianInfo: guardianInfoVisible
+  };
+  
+  // Add guardian info if provided
+  if (guardianInfoVisible) {
+    data.guardianName = document.getElementById('guardianname').value;
+    data.guardianRelationship = document.getElementById('guardianrelationship').value;
+    data.guardianContact = document.getElementById('guardiancontact').value;
+  }
+  
+  // School Information
+  data.schoolYear = document.getElementById('schoolyear').value;
+  data.gradeLevel = document.getElementById('gradelevel').value;
+  data.lastGradeCompleted = document.getElementById('lastgrade').value;
+  data.lastSchoolYearCompleted = document.getElementById('lastschoolyear').value;
+  data.schoolID = document.getElementById('schoolid').value;
+  data.selectedTrack = document.getElementById('trackInput').value;
+  data.selectedStrand = document.getElementById('strandSelect').value;
+  
+  // File names
+  data.files = {};
+  Object.keys(fileUploads).forEach(fileType => {
+    if (fileUploads[fileType].file) {
+      data.files[fileType] = fileUploads[fileType].file.name;
+    }
+  });
+  
+  return data;
+}
+
+function showConfirmation(formData) {
+  // Create modal overlay
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    padding: 1rem;
+  `;
+  
+  // Format guardian information for display
+  let guardianInfoHTML = '';
+  if (formData.hasGuardianInfo) {
+    guardianInfoHTML = `
+      <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-100); border-radius: var(--radius);">
+        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Guardian Information</h4>
+        <p><strong>Name:</strong> ${formData.guardianName || 'Not provided'}</p>
+        <p><strong>Relationship:</strong> ${formData.guardianRelationship || 'Not provided'}</p>
+        <p><strong>Contact:</strong> ${formData.guardianContact || 'Not provided'}</p>
+      </div>
+    `;
+  }
+  
+  modal.innerHTML = `
+    <div style="
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideUp 0.5s ease;
+    ">
+      <div style="
+        font-size: 4rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      ">🎉</div>
+      <h2 style="
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-family: 'Poppins', sans-serif;
+      ">Enrollment Submitted Successfully!</h2>
+      
+      <div style="text-align: left; margin: 2rem 0; padding: 1.5rem; border: 1px solid var(--gray-200); border-radius: var(--radius);">
+        <h3 style="color: var(--secondary); margin-bottom: 1rem;">Submission Summary</h3>
+        <p><strong>Student:</strong> ${formData.firstName} ${formData.middleName} ${formData.lastName}</p>
+        <p><strong>Track & Strand:</strong> ${formData.selectedTrack} - ${formData.selectedStrand}</p>
+        <p><strong>Grade Level:</strong> ${formData.gradeLevel}</p>
+        <p><strong>School Year:</strong> ${formData.schoolYear}</p>
+        <p><strong>School:</strong> Marcial O. Rañola Memorial School</p>
+        <p><strong>Campus:</strong> San Francisco, Guinobatan, Albay</p>
+        ${guardianInfoHTML}
+        <div style="margin-top: 1rem;">
+          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Uploaded Documents:</h4>
+          <ul style="padding-left: 1.5rem;">
+            ${Object.keys(formData.files).map(fileType => 
+              `<li>${formData.files[fileType]}</li>`
+            ).join('')}
+          </ul>
+        </div>
+      </div>
+      
+      <p style="color: var(--gray-700); margin-bottom: 2rem;">
+        Thank you for submitting your enrollment form to Marcial O. Rañola Memorial School. 
+        We will review your application and contact you within 3-5 working days.
+      </p>
+      <button onclick="this.closest('div[style]').remove(); location.reload();" style="
+        padding: 1rem 2rem;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: var(--radius);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(139, 0, 0, 0.3)';" 
+      onmouseout="this.style.transform=''; this.style.boxShadow='';">
+        Start New Enrollment
+      </button>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+}
+
+// Navigation Functions
+function prevPage() {
+  if (currentPage === 2) {
+    goToPage(1);
+  }
+}
+
+function prevPage2() {
+  goToPage(2);
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
